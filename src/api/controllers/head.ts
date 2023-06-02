@@ -14,7 +14,10 @@ export const Add = async (req: AuthenticatedRequest, res: Response) => {
   try {
     // Destructuring data from request
 
-    const { webPageUrl } = req.body;
+    const { webPageUrl, website } = req.body;
+
+
+
 
     // console.log({body:req.body});
 
@@ -26,7 +29,7 @@ export const Add = async (req: AuthenticatedRequest, res: Response) => {
 
     //Registering User in the Db
     const addedData = await models.Head.create({
-      ...req.body,
+      ...req.body
     });
 
   
@@ -51,31 +54,34 @@ export const Get = async (req: AuthenticatedRequest, res: Response) => {
   try {
 
 
-    const { id, webPageUrl } = req.query;
+    // const { id, webPageUrl } = req.query;
+    const { id } = req.query;
 
 
-    if(webPageUrl){
+    // if(webPageUrl){
 
 
-      //Upading customoer in the Db
-      const WebDetails = await models.Head.findOne({
-        webPageUrl,
-      });
+    //   //Upading customoer in the Db
+    //   const WebDetails = await models.Head.findOne({
+    //     webPageUrl,
+    //   });
 
-      const Response = {
-        WebDetails,
-      };
+    //   const Response = {
+    //     WebDetails,
+    //   };
 
-      //sending updated customer response
-      res.json({
-        message: "All Head Tag fetched Successfully",
-        data: Response,
-        success: true,
-      });
+    //   //sending updated customer response
+    //   res.json({
+    //     message: "All Head Tag fetched Successfully",
+    //     data: Response,
+    //     success: true,
+    //   });
     
-    }
+    // }
 
-    else if (!id) {
+    // else
+    
+    if (!id) {
       res.status(400).json({
         message: "Bad Request",
         success: false,

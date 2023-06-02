@@ -44,13 +44,33 @@ export const Add = async (req: AuthenticatedRequest, res: Response) => {
 export const Get = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id, type } = req.query;
-    if (!id) {
+
+    if(type=="all"){
+
+     //Upading customoer in the Db
+      const WebDetails = await models.Website.find({
+   });
+
+      const Response = {
+        WebDetails,
+      };
+
+      //sending updated customer response
+      res.json({
+        message: "Website Details fetched Successfully",
+        data: Response,
+        success: true,
+      });
+    }
+
+
+    else if (!id) {
       res.status(400).json({
         message: "Bad Request",
         success: false,
       });
     }
-    if (id&& type=="all") {
+   else if (id&& type=="all") {
         const WebsiteAllDetails = await models.Head.find({
         website:id,
       });
