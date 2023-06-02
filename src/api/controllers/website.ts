@@ -133,20 +133,20 @@ export const update = async (req: AuthenticatedRequest, res: Response) => {
         success: false,
       });
     } else {
-      const isSameExist = await models.Head.findOne({
-        webPageUrl: req.body.webPageUrl,
+      const isSameExist = await models.Website.findOne({
+        name:req.body.name
       });
 
       console.log({ isSameExist });
 
       if (isSameExist && isSameExist?._id.toString() != id) {
         res.status(400).json({
-          message: "Same page Already Exist",
+          message: "Same Website Already Exist",
           success: false,
         });
       } else {
         //Upading customoer in the Db
-        const updatedHead = await models.Head.findOneAndUpdate(
+        const updatedHead = await models.Website.findOneAndUpdate(
           {
             _id: id,
           },
@@ -167,7 +167,7 @@ export const update = async (req: AuthenticatedRequest, res: Response) => {
 
         //sending updated customer response
         res.json({
-          message: "Head tagas Updated Successfully",
+          message: "Website Updated Successfully",
           data: Response,
           success: true,
         });

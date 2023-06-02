@@ -36,13 +36,13 @@ export default (app: Router) => {
    *     description: For getting all and custom inventry as per query .
    */
   route.get("/get", Controller.Website.Get);
-//   /**
-//    * @swagger
-//    * /get :
-//    *   put:
-//    *     tags: [Inventry]
-//    *     summary: getting inventry
-//    *     description: For getting all and custom inventry as per query .
-//    */
-//   route.put("/update", Controller.Head.update);
+  /**
+   * @swagger
+   * /get :
+   *   put:
+   *     tags: [Inventry]
+   *     summary: getting inventry
+   *     description: For getting all and custom inventry as per query .
+   */
+  route.put("/update", Controller.Website.update);
 };
