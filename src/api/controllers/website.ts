@@ -45,7 +45,7 @@ export const Get = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id, type } = req.query;
 
-    if(type=="all"){
+    if(type=="all" && !id){
 
      //Upading customoer in the Db
       const WebDetails = await models.Website.find({
@@ -70,15 +70,29 @@ export const Get = async (req: AuthenticatedRequest, res: Response) => {
         success: false,
       });
     }
-   else if (id&& type=="all") {
-        const WebsiteAllDetails = await models.Head.find({
-        website:id,
-      });
+   else if (id&& type=="allheads") {
 
+
+const webWithPages = await models.Website.aggregate([
+  { $match: {} }, // Filter customers with isDelete set to false
+  { $sort: { createdAt: -1 } },
+  {
+    $lookup: {
+      from: "heads",
+      localField: "_id",
+      foreignField: "website",
+      as: "heads",
+    },
+  },
+]).exec();
+
+
+   
 
 
       const Response = {
-        WebsiteAllDetails,
+        // WebsiteAllDetails,
+        webWithPages,
       };
 
       //sending updated customer response
