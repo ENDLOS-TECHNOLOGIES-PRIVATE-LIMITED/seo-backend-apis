@@ -4,7 +4,7 @@ const yup = require("yup");
 const websiteSchema = yup.object().shape({
   name: yup.string().required("Please Provide Website Name").min(2),
 
-  url: yup.string().required("Website Url Required"),
+  // url: yup.string().required("Website Url Required"),
 });
 
 // Validation middleware

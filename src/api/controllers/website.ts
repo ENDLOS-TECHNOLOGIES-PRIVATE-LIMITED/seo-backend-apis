@@ -12,11 +12,11 @@ export const Add = async (req: AuthenticatedRequest, res: Response) => {
   try {
     // Destructuring data from request
 
-    const { name,url } = req.body;
+    const { name } = req.body;
 
     // console.log({body:req.body});
 
-    let alreadyExist = await models.Website.findOne({ name, url });
+    let alreadyExist = await models.Website.findOne({ name });
     if (alreadyExist) {
       return res.status(400).json({ error: "Website already exists" });
     }

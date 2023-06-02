@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
 const websiteSchema = new Schema(
   {
-    name: { type: String, required: true,},
+    name: { type: String, required: true,unique:true},
     // url: { type: String, required: true, unique: true },
   
   },
