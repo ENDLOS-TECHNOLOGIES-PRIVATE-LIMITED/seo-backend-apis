@@ -13,16 +13,7 @@ export default (app: Router) => {
    */
   app.use("/user", route);
 
-  /**
-   * @swagger
-   * /superadmin/register:
-   *   Post:
-   *     tags: [User]
-   *     summary: Register user
-   *     description: Registering superadmin user.
-   */
-  route.post("/superadmin/register", Validator.userValidataion.validateRegisterUser, Controller.User.SuperAdminRegister);
-  /**
+/**
    * @swagger
    * /register:
    *   Post:
@@ -30,7 +21,7 @@ export default (app: Router) => {
    *     summary: Register user
    *     description: Registering user.
    */
-  route.post("/register", Validator.userValidataion.validateRegisterUser, verifySuperAdmin, Controller.User.Register);
+  route.post("/register", Validator.userValidataion.validateRegisterUser,  Controller.User.Register);
   /**
    * @swagger
    * /login:

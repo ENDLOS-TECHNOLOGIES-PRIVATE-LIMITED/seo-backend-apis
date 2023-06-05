@@ -14,8 +14,6 @@ export const verifyUser = (req: any, res: Response, next: NextFunction) => {
   }
   try {
 
-
-
     const data: any = jwt.verify(token, config.jwtSecret);
     req.user = data.user;
     next();

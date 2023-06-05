@@ -10,56 +10,8 @@ interface AuthenticatedRequest extends Request {
 }
 
 
-export const SuperAdminRegister = async (req: Request, res: Response) => {
-  try {
-    // Destructuring data from request
-    const { email, password } = req.body;
 
-    let isUserRegisterd = await models.User.findOne({ email });
-    if (isUserRegisterd) {
-      return res.status(400).json({ error: "Email already exists" });
-    }
-
-    const encriptedPass = await helpers.bcryptHelper.generateHash(password);
-
-    //Registering Employee in the Db
-    const RegisterdUser = await models.User.create({
-      ...req.body,
-      password: encriptedPass,
-    });
-
-
-    //sign token 
-
-    const token = await helpers.jwtHelper.generateTokens({
-      id:RegisterdUser._id,
-      role:RegisterdUser.role,
-    })
-
-    const Response = {
-      token,
-      user: {
-        firstname: RegisterdUser.firstname,
-        lastname: RegisterdUser.lastname,
-        email:RegisterdUser.email,
-        role:RegisterdUser.role
-      },
-    };
-
-  
-    // //sending Registerd User response
-    res.json({
-      message: " Successfully Registerd",
-      data: Response,
-      success: true,
-    });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message, success: false });
-  }
-};
-
-
-export const Register = async (req: AuthenticatedRequest, res: Response) => {
+export const Register = async (req: Request, res: Response) => {
   try {
     // Destructuring data from request
     const { email, password } = req.body;
@@ -75,9 +27,6 @@ export const Register = async (req: AuthenticatedRequest, res: Response) => {
     const RegisterdUser = await models.User.create({
       ...req.body,
       password: encriptedPass,
-      createdBy: {
-        _user: req?.user.id,
-      },
     });
 
     //sign token
@@ -110,13 +59,19 @@ export const Register = async (req: AuthenticatedRequest, res: Response) => {
 
 
 
+
+
 export const Login = async (req: Request, res: Response) => {
   try {
     //Destructuring data from request
     const { email, password } = req.body;
 
+    console.log(req.body);
+
     
 const loggedinUser: any = await models.User.find({ email });
+
+console.log({loggedinUser});
 
     if (!loggedinUser) {
       return res.status(400).json({
@@ -124,7 +79,6 @@ const loggedinUser: any = await models.User.find({ email });
         success: false,
       });
     }else{
-
       // console.log("in the else block ");
       // console.log("in the else block ",password,loggedinUser);
       // const passwordCompare = await bcrypt.compare(password, loggedinUser[0].password);
@@ -154,7 +108,12 @@ const loggedinUser: any = await models.User.find({ email });
         },
       };
 
-   
+      // //sending Registerd User response
+      res.json({
+        message: " Successfully Login",
+        data: Response,
+        success: true,
+      });
     }
 
   
