@@ -55,33 +55,31 @@ export const Get = async (req: AuthenticatedRequest, res: Response) => {
 
 
     // const { id, webPageUrl } = req.query;
-    const { id } = req.query;
+    const { id, webPageUrl } = req.query;
 
 
-    // if(webPageUrl){
+    if(webPageUrl){
 
 
-    //   //Upading customoer in the Db
-    //   const WebDetails = await models.Head.findOne({
-    //     webPageUrl,
-    //   });
+      //Upading customoer in the Db
+      const WebDetails = await models.Head.findOne({
+        webPageUrl,
+      });
 
-    //   const Response = {
-    //     WebDetails,
-    //   };
+      const Response = {
+        WebDetails,
+      };
 
-    //   //sending updated customer response
-    //   res.json({
-    //     message: "All Head Tag fetched Successfully",
-    //     data: Response,
-    //     success: true,
-    //   });
+      //sending updated customer response
+      res.json({
+        message: "All Head Tag fetched Successfully",
+        data: Response,
+        success: true,
+      });
     
-    // }
+    }
 
-    // else
-    
-    if (!id) {
+    else if (!id) {
       res.status(400).json({
         message: "Bad Request",
         success: false,
