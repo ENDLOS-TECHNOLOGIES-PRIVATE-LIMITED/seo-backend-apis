@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import models from "../models";
+import mongoose from "mongoose";
+
 
 interface AuthenticatedRequest extends Request {
   user?: {
@@ -74,7 +76,7 @@ export const Get = async (req: AuthenticatedRequest, res: Response) => {
 
 
 const webWithPages = await models.Website.aggregate([
-  { $match: {} }, // Filter customers with isDelete set to false
+  { $match:{_id: new mongoose.Types.ObjectId(id.toString()) } }, // Filter customers with isDelete set to false
   { $sort: { createdAt: -1 } },
   {
     $lookup: {
@@ -86,6 +88,13 @@ const webWithPages = await models.Website.aggregate([
   },
 ]).exec();
 
+
+console.log({webWithPages});
+
+
+
+
+console.log(req.query);
 
    
 
