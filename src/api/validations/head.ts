@@ -7,9 +7,9 @@ const headSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
   keywords: yup.string().required("Keywords are required"),
-  ogTitle: yup.string().required("Open Graph Title is required"),
-  ogDescription: yup.string().required("Open Graph Description is required"),
-  ogImageUrl: yup.string().required("Open Graph Image URL is required"),
+  ogTitle: yup.string().required("OG Title is required"),
+  ogDescription: yup.string().required("OG Description is required"),
+  ogImageUrl: yup.string().required("Og Image URL is required"),
   twitterTitle: yup.string().required("Twitter Title is required"),
   twitterDescription: yup.string().required("Twitter Description is required"),
   twitterImage: yup.string().required("Twitter Image URL is required")
